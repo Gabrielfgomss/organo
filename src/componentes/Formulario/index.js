@@ -1,19 +1,24 @@
 import Botao from '../Botao'
-import CampoTexto from '../CampoTexto'
+import Campo from '../Campo'
 import ListaSuspensa from '../ListaSuspensa'
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
 import './formulario.css'
 
 const Formulario = (props) => {
-
+    
     const [nome, setNome] = useState('');
     const [experiencia, setExperiencia] = useState('');
     const [imagem, setImagem] = useState('');
     const [time, setTime] = useState('');
+    const [nomeTime, setNomeTime] = useState('');
+    const [corTime, setCorTime] = useState('');
 
     const aoSalvar = (evento) => {
         evento.preventDefault();
         props.aoProgramadorCadastrado({
+            id: uuidv4(),
+            favorito: false,
             nome,
             experiencia,
             imagem,
@@ -29,37 +34,68 @@ const Formulario = (props) => {
         <section className='formulario'>
             <form onSubmit={aoSalvar}>
                 <h2>Preencha os dados para criar o card do programador.</h2>
-                <CampoTexto 
-                obrigatorio={true} 
-                label='Nome' 
-                placeholder='Digite seu nome'
-                valor={nome}
-                aoAlterado={valor => setNome(valor)}>
-                </CampoTexto>
-                <CampoTexto 
-                obrigatorio={true} 
-                label='Experiencia' 
-                placeholder='ex. Júnior, Pleno ou Sênior'
-                valor={experiencia}
-                aoAlterado={valor => setExperiencia(valor)}>
-                </CampoTexto>
-                <CampoTexto 
-                label='Imagem' 
-                placeholder='Digite o endereço da imagem'
-                valor={imagem}
-                aoAlterado={valor => setImagem(valor)}>
-                </CampoTexto>
+                <Campo 
+                    obrigatorio={true} 
+                    label='Nome' 
+                    placeholder='Digite seu nome'
+                    valor={nome}
+                    aoAlterado={valor => setNome(valor)}>
+                </Campo>
+                <Campo 
+                    obrigatorio={true} 
+                    label='Experiencia' 
+                    placeholder='ex. Júnior, Pleno ou Sênior'
+                    valor={experiencia}
+                    aoAlterado={valor => setExperiencia(valor)}>
+                </Campo>
+                <Campo 
+                    label='Imagem' 
+                    placeholder='Digite o endereço da imagem'
+                    valor={imagem}
+                    aoAlterado={valor => setImagem(valor)}>
+                </Campo>
                 <ListaSuspensa 
-                obrigatorio={true} 
-                label='Time' 
-                itens={props.times}
-                valor={time}
-                aoAlterado={valor => setTime(valor)}>
+                    obrigatorio={true} 
+                    label='Time' 
+                    itens={props.times}
+                    valor={time}
+                    aoAlterado={valor => setTime(valor)}>
                 </ListaSuspensa>
-                <Botao texto='Criar card'>
-                    Criar Botão
+                <Botao action='botao-card'>
+                    Criar card
                 </Botao>
             </form>
+            <form onSubmit={(evento)=>{
+                evento.preventDefault();
+                props.cadastrarTime({ nome: nomeTime, cor: corTime});
+            }}>
+                <h2>Preencha os dados para criar um novo time.</h2>
+                <Campo 
+                    obrigatorio={true} 
+                    label='Nome' 
+                    placeholder='Digite o nome do time'
+                    valor={nomeTime}
+                    aoAlterado={valor => setNomeTime(valor)}>
+                </Campo>
+                <Campo 
+                    type='color'
+                    obrigatorio={true} 
+                    label='Cor' 
+                    placeholder='Digite a cor do time'
+                    valor={corTime}
+                    aoAlterado={valor => setCorTime(valor)}>
+                </Campo>
+                <Botao 
+                    action='botao-card'>
+                    Criar um novo time
+                </Botao>
+            </form>
+            <p>Minha organização:</p>
+            <span></span>
+            <Botao
+                action='botao-form'>
+                    
+            </Botao>
         </section>
     )
 }

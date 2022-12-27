@@ -1,9 +1,8 @@
 footer {
     background-image: url('/public/imagens/fundo.png');
     background-color: #6278F7;
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
-    height: 213px;
     display: flex;
     align-items: center;
     justify-content: space-around;

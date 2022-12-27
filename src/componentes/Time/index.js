@@ -1,23 +1,38 @@
 import Programador from '../Programador'
+import hexToRgba from 'hex-to-rgba';
 import './Time.css'
 
-const Time = (props) => {
+//const Time = (props) => {
+const Time = ({programadores, nomeDoTime, cor, aoDeletar, mudarCor, id, aoFavoritar}) => {
     return (
-        (props.programadores.length > 0) ?
+        (programadores.length > 0) ?
         <section 
         className='time'
-        style={{ backgroundColor: props.corPrimaria }}>
+        style={{ backgroundColor: hexToRgba(cor, '0.5'), backgroundImage: 'url(/imagens/fundo.png)' }}>
+            <input 
+                onChange={evento => mudarCor(evento.target.value, id)} 
+                value={cor} 
+                type='color' 
+                className='input-cor'>
+            </input>
             <h3 
-            style={{ borderColor: props.corSecundaria }}>{props.nome}
+            style={{ borderColor: cor }}>{nomeDoTime}
             </h3>
             <div className='programadores'>
-                {props.programadores.map( programador => <Programador
-                corDeFundo={props.corSecundaria}
-                key={programador.nome} 
-                nome={programador.nome}
-                experiencia={programador.experiencia}
-                imagem={programador.imagem} >
-            </Programador> )}
+                {programadores.map( (programador) => {
+                    return <Programador 
+                        corDeFundo={cor} 
+                        id={programador.id}
+                        key={programador.nome} 
+                        nome={programador.nome}
+                        experiencia={programador.experiencia} 
+                        imagem={programador.imagem} 
+                        favorito={programador.favorito}
+                        aoDeletar={aoDeletar}
+                        aoFavoritar={aoFavoritar}
+                        />
+                    })
+                }
             </div>
         </section>
         : ''
