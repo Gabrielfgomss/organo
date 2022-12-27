@@ -16,5 +16,5 @@
 
 .botao-form {
     border: none;
-    background: url('/organo/public/imagens/Botãoadd-01.png');
+    background-image: url('/organo/public/imagens/Botãoadd-01.png');
 }
