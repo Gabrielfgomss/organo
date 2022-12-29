@@ -3,7 +3,6 @@
     grid-template-columns: 1fr 1fr;
     column-gap: 40px;
     margin: 80px 50px;
-
 }
 
 .formulario form {
@@ -14,16 +13,20 @@
     box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.08);
 }
 
-.formulario p {
+.formulario div {
+    position: relative;
     grid-column: span 2;
+    justify-content: center;
+}
+
+.formulario p {
     text-align: center;
     font-size: 40px;
     color: #6278F7;
+    
 }
 
-span {
-    grid-column: span 2;
+.formulario div div {
     border-bottom: 4px solid #6278F7;
-    padding: 0px 60px;
-    justify-self: center;
+    margin: 0px 45%;
 }

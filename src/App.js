@@ -7,33 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 function App() {
 
-  /*const [times, setTimes] = useState([
-    {
-      id: uuidv4(),
-      nome: 'Front-End',
-      cor: '#82CFFA',
-    },
-    {
-      id: uuidv4(),
-      nome: 'Back-End',
-      cor: '#57C278',
-    },
-    {
-      id: uuidv4(),
-      nome: 'Design',
-      cor: '#DB6EBF',
-    },
-    {
-      id: uuidv4(),
-      nome: 'Mobile',
-      cor: '#FFBA05',
-    },
-    {
-      id: uuidv4(),
-      nome: 'Data Science',
-      cor: '#A6D157',
-    },
-  ]);*/
  const [times, setTimes] = useState(() => {
     const lista = localStorage.getItem('times');
     const listaDeTimes = JSON.parse(lista);
@@ -112,16 +85,22 @@ function App() {
     }))
   }
 
+  function removerForm(evento) {
+    console.log(evento);
+}
+
   return (
     <div className="App">
-      
+
       <Banner/>
+
       <Formulario 
         cadastrarTime={cadastrarTime}
         times={times.map(time => time.nome)}
         aoProgramadorCadastrado={programador => (aoNovoProgramadorAdicionado(programador))}
-      >
+        aoRemoverForm={removerForm}>
       </Formulario>
+
       {times.map(time => 
         <Time 
           aoFavoritar={resolverFavorito}
@@ -134,6 +113,7 @@ function App() {
           aoDeletar={deletarProgramador}
         />
       )}
+
       <Rodape></Rodape>
     </div>
   );

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './formulario.css'
 
-const Formulario = (props) => {
+const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime, aoRemoverForm}) => {
     
     const [nome, setNome] = useState('');
     const [experiencia, setExperiencia] = useState('');
@@ -16,7 +16,7 @@ const Formulario = (props) => {
 
     const aoSalvar = (evento) => {
         evento.preventDefault();
-        props.aoProgramadorCadastrado({
+        aoProgramadorCadastrado({
             id: uuidv4(),
             favorito: false,
             nome,
@@ -57,7 +57,7 @@ const Formulario = (props) => {
                 <ListaSuspensa 
                     obrigatorio={true} 
                     label='Time' 
-                    itens={props.times}
+                    itens={times}
                     valor={time}
                     aoAlterado={valor => setTime(valor)}>
                 </ListaSuspensa>
@@ -67,7 +67,7 @@ const Formulario = (props) => {
             </form>
             <form onSubmit={(evento)=>{
                 evento.preventDefault();
-                props.cadastrarTime({ nome: nomeTime, cor: corTime});
+                cadastrarTime({ nome: nomeTime, cor: corTime});
             }}>
                 <h2>Preencha os dados para criar um novo time.</h2>
                 <Campo 
@@ -90,12 +90,14 @@ const Formulario = (props) => {
                     Criar um novo time
                 </Botao>
             </form>
-            <p>Minha organização:</p>
-            <span></span>
-            <Botao
-                action='botao-form'>
-                    
-            </Botao>
+            <div>
+                <p>Minha organização:</p>
+                <div></div>
+                <Botao
+                    aoRemoverForm={aoRemoverForm}
+                    action='botao-form'>
+                </Botao>
+            </div>
         </section>
     )
 }
