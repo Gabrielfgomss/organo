@@ -6,27 +6,26 @@
 }
 
 .formulario form {
-    flex: 1;
     background-color: #F6F6F6;
     border-radius: 20px;
     padding: 36px 64px;
     box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.08);
 }
 
-.formulario div {
+.formulario__index {
     position: relative;
     grid-column: span 2;
-    justify-content: center;
+    margin-bottom: 24px;
 }
 
-.formulario p {
+.formulario__index p {
     text-align: center;
     font-size: 40px;
     color: #6278F7;
     
 }
 
-.formulario div div {
+.formulario__index div {
     border-bottom: 4px solid #6278F7;
     margin: 0px 45%;
 }

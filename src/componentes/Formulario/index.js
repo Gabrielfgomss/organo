@@ -96,7 +96,7 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
                     Criar um novo time
                 </Botao>
             </form>
-            <div>
+            <div className='formulario__index'>
                 <p>Minha organização:</p>
                 <div></div>
                 <Botao
