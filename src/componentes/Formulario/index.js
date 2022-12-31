@@ -5,8 +5,9 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './formulario.css'
 
-const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime, aoRemoverForm}) => {
+const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
     
+    const [onScreen, setOnScreen] = useState(true);
     const [nome, setNome] = useState('');
     const [experiencia, setExperiencia] = useState('');
     const [imagem, setImagem] = useState('');
@@ -30,9 +31,13 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime, aoRemoverFor
         setTime('');
     }
 
+    function removerForm(evento) {
+        setOnScreen(current => !current);
+    }
+
     return (
         <section className='formulario'>
-            <form onSubmit={aoSalvar}>
+            <form onSubmit={aoSalvar} style={{display: onScreen ? 'block' : 'none'}}>
                 <h2>Preencha os dados para criar o card do programador.</h2>
                 <Campo 
                     obrigatorio={true} 
@@ -68,7 +73,8 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime, aoRemoverFor
             <form onSubmit={(evento)=>{
                 evento.preventDefault();
                 cadastrarTime({ nome: nomeTime, cor: corTime});
-            }}>
+            }}
+                style={{display: onScreen ? 'block' : 'none'}}>
                 <h2>Preencha os dados para criar um novo time.</h2>
                 <Campo 
                     obrigatorio={true} 
@@ -94,7 +100,7 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime, aoRemoverFor
                 <p>Minha organização:</p>
                 <div></div>
                 <Botao
-                    aoRemoverForm={aoRemoverForm}
+                    aoRemoverForm={removerForm}
                     action='botao-form'>
                 </Botao>
             </div>

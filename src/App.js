@@ -75,7 +75,6 @@ function App() {
     setTimes([...times, { ...novoTime, id: uuidv4() }]);
   }
 
-
   function resolverFavorito(id) {
     setProgramadores(programadores.map(programador => {
       if(programador.id === id) {
@@ -84,10 +83,6 @@ function App() {
       return programador
     }))
   }
-
-  function removerForm(evento) {
-    console.log(evento);
-}
 
   return (
     <div className="App">
@@ -98,7 +93,7 @@ function App() {
         cadastrarTime={cadastrarTime}
         times={times.map(time => time.nome)}
         aoProgramadorCadastrado={programador => (aoNovoProgramadorAdicionado(programador))}
-        aoRemoverForm={removerForm}>
+        >
       </Formulario>
 
       {times.map(time => 
