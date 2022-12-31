@@ -59,8 +59,15 @@ function App() {
   }
 
   function deletarProgramador(id) {
-    setProgramadores(programadores.filter(programador => programador.id !== id), console.log('work'));
+    setProgramadores(programadores.filter(programador => programador.id !== id));
   }
+
+  function deletarTime(id, programadorDoTime) {
+    setTimes(times.filter(time => time.id !== id));
+    setProgramadores(programadorDoTime.filter((programador) =>
+      !programadores.includes(programador)
+    ))
+  }  
 
   function mudarCorDoTime(cor, id) {
     setTimes(times.map(time => {
@@ -97,7 +104,8 @@ function App() {
       </Formulario>
 
       {times.map(time => 
-        <Time 
+        <Time
+          aoDeletarTime={deletarTime}
           aoFavoritar={resolverFavorito}
           id={time.id}
           mudarCor={mudarCorDoTime}

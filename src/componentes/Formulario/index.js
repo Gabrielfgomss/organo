@@ -99,10 +99,10 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
             <div className='formulario__index'>
                 <p>Minha organização:</p>
                 <div></div>
-                <Botao
-                    aoRemoverForm={removerForm}
-                    action='botao-form'>
-                </Botao>
+                <button className='botao-form'
+                    onClick={(evento)=> removerForm(evento)}
+                    >
+                </button>
             </div>
         </section>
     )

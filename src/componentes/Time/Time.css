@@ -23,3 +23,9 @@
     top: 20px;
     right: 50px;
 }
+
+.deletarTime {
+    position: absolute;
+    top: 20px;
+    left: 50px;
+}
