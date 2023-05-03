@@ -1,12 +1,13 @@
 import Botao from '../Botao'
 import Campo from '../Campo'
 import ListaSuspensa from '../ListaSuspensa'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './formulario.css'
+import { GlobalContext } from '../../common/Times';
 
-const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
-    
+const Formulario = () => {
+    const globalContext = useContext(GlobalContext);
     const [onScreen, setOnScreen] = useState(true);
     const [nome, setNome] = useState('');
     const [experiencia, setExperiencia] = useState('');
@@ -17,7 +18,7 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
 
     const aoSalvar = (evento) => {
         evento.preventDefault();
-        aoProgramadorCadastrado({
+        globalContext.aoNovoProgramadorAdicionado({
             id: uuidv4(),
             favorito: false,
             nome,
@@ -62,7 +63,7 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
                 <ListaSuspensa 
                     obrigatorio={true} 
                     label='Time' 
-                    itens={times}
+                    itens={globalContext.times.map((time) => time.nome)}
                     valor={time}
                     aoAlterado={valor => setTime(valor)}>
                 </ListaSuspensa>
@@ -72,7 +73,7 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
             </form>
             <form onSubmit={(evento)=>{
                 evento.preventDefault();
-                cadastrarTime({ nome: nomeTime, cor: corTime});
+                globalContext.cadastrarTime({ nome: nomeTime, cor: corTime});
             }}
                 style={{display: onScreen ? 'block' : 'none'}}>
                 <h2>Preencha os dados para criar um novo time.</h2>

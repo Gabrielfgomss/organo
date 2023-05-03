@@ -1,15 +1,15 @@
 import {AiFillCloseCircle, AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
 import './Programador.css';
+import { useContext } from 'react';
+import { GlobalContext } from '../../common/Times';
 
-const Programador = ({nome, imagem, experiencia, corDeFundo, aoDeletar, id, favorito, aoFavoritar}) => {
-    
-    function favoritar() {
-        aoFavoritar(id);
-    }
+const Programador = ({nome, imagem, experiencia, corDeFundo, id, favorito}) => {
+
+    const globalContext = useContext(GlobalContext)
 
     const propsFavorito = {
         size: 25,
-        onClick: favoritar
+        onClick: globalContext.resolverFavorito(id)
     }
 
     return (
@@ -17,7 +17,7 @@ const Programador = ({nome, imagem, experiencia, corDeFundo, aoDeletar, id, favo
             <AiFillCloseCircle 
                 size={25} 
                 className='deletar' 
-                onClick={() => aoDeletar(id)} 
+                onClick={() => globalContext.deletarProgramador(id)} 
             />
             <div className='cabecalho' style={{ backgroundColor: corDeFundo }}>
                 <img src={imagem} alt={nome}></img>
