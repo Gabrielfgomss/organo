@@ -8,7 +8,6 @@ import { GlobalContext } from '../../common/Times';
 
 const Formulario = () => {
     const globalContext = useContext(GlobalContext);
-    (globalContext)
     const times = globalContext.times.map((time) => time.nome);
     const [onScreen, setOnScreen] = useState(true);
     const [nome, setNome] = useState('');
