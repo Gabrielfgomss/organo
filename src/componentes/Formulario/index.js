@@ -8,6 +8,8 @@ import { GlobalContext } from '../../common/Times';
 
 const Formulario = () => {
     const globalContext = useContext(GlobalContext);
+    (globalContext)
+    const times = globalContext.times.map((time) => time.nome);
     const [onScreen, setOnScreen] = useState(true);
     const [nome, setNome] = useState('');
     const [experiencia, setExperiencia] = useState('');
@@ -63,7 +65,7 @@ const Formulario = () => {
                 <ListaSuspensa 
                     obrigatorio={true} 
                     label='Time' 
-                    itens={globalContext.times.map((time) => time.nome)}
+                    itens={times}
                     valor={time}
                     aoAlterado={valor => setTime(valor)}>
                 </ListaSuspensa>

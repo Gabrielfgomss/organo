@@ -9,7 +9,7 @@ const Programador = ({nome, imagem, experiencia, corDeFundo, id, favorito}) => {
 
     const propsFavorito = {
         size: 25,
-        onClick: globalContext.resolverFavorito(id)
+        onClick: () => globalContext.resolverFavorito(id)
     }
 
     return (

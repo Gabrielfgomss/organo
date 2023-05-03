@@ -43,70 +43,67 @@ export const GlobalProvider = ({ children }) => {
         localStorage.setItem('times', JSON.stringify(times));
     }, [times]);
 
-    function deletarTime(id, programadorDoTime) {
-        
+    function deletarTime(id, nomeDoTime) {
         setTimes(times.filter(time => time.id !== id));
-        setProgramadores(programadores.filter(() => 
-            !programadores.includes(programadorDoTime)
-        ))
-}
+        setProgramadores(programadores.filter(programador => !(programador.time === nomeDoTime)))
+    }
 
-function mudarCorDoTime(cor, id) {
-    setTimes(times.map(time => {
-        if (time.id === id) {
-            time.cor = cor;
-        }
-        return time
-    }));
-}
+    function mudarCorDoTime(cor, id) {
+        setTimes(times.map(time => {
+            if (time.id === id) {
+                time.cor = cor;
+            }
+            return time
+        }));
+    }
 
-function cadastrarTime(novoTime) {
-    setTimes([...times, { ...novoTime, id: uuidv4() }]);
-}
+    function cadastrarTime(novoTime) {
+        setTimes([...times, { ...novoTime, id: uuidv4() }]);
+    }
 
-const [programadores, setProgramadores] = useState(() => {
-    const programadorCadastrado = localStorage.getItem('programadores');
-    const initialValue = JSON.parse(programadorCadastrado);
-    return initialValue || [];
-});
+    const [programadores, setProgramadores] = useState(() => {
+        const programadorCadastrado = localStorage.getItem('programadores');
+        const initialValue = JSON.parse(programadorCadastrado);
+        return initialValue || [];
+    });
 
-useEffect(() => {
-    localStorage.setItem('programadores', JSON.stringify(programadores));
-}, [programadores]);
+    useEffect(() => {
+        localStorage.setItem('programadores', JSON.stringify(programadores));
+    }, [programadores]);
 
-const aoNovoProgramadorAdicionado = (programador) => {
-    setProgramadores([...programadores, programador])
-}
+    const aoNovoProgramadorAdicionado = (programador) => {
+        setProgramadores([...programadores, programador])
+    }
 
-function deletarProgramador(id) {
-    setProgramadores(programadores.filter(programador => programador.id !== id));
-}
+    function deletarProgramador(id) {
+        setProgramadores(programadores.filter(programador => programador.id !== id));
+    }
 
-function resolverFavorito(id) {
-    setProgramadores(programadores.map(programador => {
-        if (programador.id === id) {
-            programador.favorito = !programador.favorito
-        };
-        return programador
-    }))
-}
+    function resolverFavorito(id) {
+        setProgramadores(programadores.map(programador => {
+            if (programador.id === id) {
+                programador.favorito = !programador.favorito
+            };
+            return programador
+        }))
+    }
 
-return (
-    <GlobalContext.Provider
-        value={{
-            times,
-            setTimes,
-            deletarTime,
-            mudarCorDoTime,
-            cadastrarTime,
-            programadores,
-            setProgramadores,
-            aoNovoProgramadorAdicionado,
-            deletarProgramador,
-            resolverFavorito
-        }}
-    >
-        {children}
-    </GlobalContext.Provider>
-)
+    return (
+        <GlobalContext.Provider
+            value={{
+                times,
+                setTimes,
+                deletarTime,
+                mudarCorDoTime,
+                cadastrarTime,
+                programadores,
+                setProgramadores,
+                aoNovoProgramadorAdicionado,
+                deletarProgramador,
+                resolverFavorito
+            }}
+        >
+            {children}
+        </GlobalContext.Provider>
+    )
 }

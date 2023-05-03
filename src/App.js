@@ -8,7 +8,7 @@ import Time from './componentes/Time';
 function App() {
   
   const globalContext = useContext(GlobalContext);
-
+  
   return (
     <div className="App">
       <Banner />
