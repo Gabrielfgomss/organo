@@ -12,3 +12,15 @@
 .botao:hover {
     color: #95FFD4;
 }
+
+.botao-form {
+    position: absolute;
+    right: 0px;
+    top: 40%;
+    border: none;
+    background-color: #FFF;
+    background-image: url('/public/imagens/Botãoadd-01.png');
+    background-size: cover;
+    width: 108px;
+    height: 108px;
+}

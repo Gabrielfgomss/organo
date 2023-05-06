@@ -1,8 +1,8 @@
 import './Botao.css'
 
-const Botao = ({children, action}) => {
+const Botao = ({children, action, aoRemoverForm}) => {
     return (
-        <button className={action}>
+        <button className={action} onClick={(evento)=> aoRemoverForm(evento)}>
             {children}
         </button>
     )
