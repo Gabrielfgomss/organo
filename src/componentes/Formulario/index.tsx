@@ -4,9 +4,17 @@ import ListaSuspensa from '../ListaSuspensa'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import './formulario.css'
+import { IProgramador } from '../../shared/interfaces/IProgramador.js';
+import { ITimes } from '../../shared/interfaces/ITimes';
 
-const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
-    
+interface FormularioProps {
+    aoProgramadorCadastrado: (programador: IProgramador) => void
+    times: ITimes[],
+    cadastrarTime: (novoTime: ITimes) => void
+}
+
+const Formulario = ({ aoProgramadorCadastrado, times, cadastrarTime }: FormularioProps) => {
+    console.log(times)
     const [onScreen, setOnScreen] = useState(true);
     const [nome, setNome] = useState('');
     const [experiencia, setExperiencia] = useState('');
@@ -15,7 +23,7 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
     const [nomeTime, setNomeTime] = useState('');
     const [corTime, setCorTime] = useState('');
 
-    const aoSalvar = (evento) => {
+    const aoSalvar = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
         aoProgramadorCadastrado({
             id: uuidv4(),
@@ -31,69 +39,67 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
         setTime('');
     }
 
-    function removerForm(evento) {
+    function removerForm() {
         setOnScreen(current => !current);
     }
 
     return (
         <section className='formulario'>
-            <form onSubmit={aoSalvar} style={{display: onScreen ? 'block' : 'none'}}>
+            <form onSubmit={aoSalvar} style={{ display: onScreen ? 'block' : 'none' }}>
                 <h2>Preencha os dados para criar o card do programador.</h2>
-                <Campo 
-                    obrigatorio={true} 
-                    label='Nome' 
+                <Campo
+                    obrigatorio={true}
+                    label='Nome'
                     placeholder='Digite seu nome'
                     valor={nome}
-                    aoAlterado={valor => setNome(valor)}>
-                </Campo>
-                <Campo 
-                    obrigatorio={true} 
-                    label='Experiencia' 
+                    aoAlterado={valor => setNome(valor)} />
+                <Campo
+                    obrigatorio={true}
+                    label='Experiencia'
                     placeholder='ex. Júnior, Pleno ou Sênior'
                     valor={experiencia}
-                    aoAlterado={valor => setExperiencia(valor)}>
-                </Campo>
-                <Campo 
-                    label='Imagem' 
+                    aoAlterado={valor => setExperiencia(valor)} />
+
+                <Campo
+                    obrigatorio={false}
+                    label='Imagem'
                     placeholder='Digite o endereço da imagem'
                     valor={imagem}
-                    aoAlterado={valor => setImagem(valor)}>
-                </Campo>
-                <ListaSuspensa 
-                    obrigatorio={true} 
-                    label='Time' 
+                    aoAlterado={valor => setImagem(valor)} />
+
+                <ListaSuspensa
+                    obrigatorio={true}
+                    label='Time'
                     itens={times}
                     valor={time}
-                    aoAlterado={valor => setTime(valor)}>
-                </ListaSuspensa>
-                <Botao action='botao-card'>
-                    Criar card
+                    aoAlterado={valor => setTime(valor)} />
+                <Botao
+                    action="botao-card">
+                    <span>Criar card</span>
                 </Botao>
             </form>
-            <form onSubmit={(evento)=>{
+            <form onSubmit={(evento) => {
                 evento.preventDefault();
-                cadastrarTime({ nome: nomeTime, cor: corTime});
+                cadastrarTime({ nome: nomeTime, cor: corTime, id: uuidv4() });
             }}
-                style={{display: onScreen ? 'block' : 'none'}}>
+                style={{ display: onScreen ? 'block' : 'none' }}>
                 <h2>Preencha os dados para criar um novo time.</h2>
-                <Campo 
-                    obrigatorio={true} 
-                    label='Nome' 
+                <Campo
+                    obrigatorio={true}
+                    label='Nome'
                     placeholder='Digite o nome do time'
                     valor={nomeTime}
-                    aoAlterado={valor => setNomeTime(valor)}>
-                </Campo>
-                <Campo 
+                    aoAlterado={valor => setNomeTime(valor)} />
+                <Campo
                     type='color'
-                    obrigatorio={true} 
-                    label='Cor' 
+                    obrigatorio={true}
+                    label='Cor'
                     placeholder='Digite a cor do time'
                     valor={corTime}
-                    aoAlterado={valor => setCorTime(valor)}>
-                </Campo>
-                <Botao 
-                    action='botao-card'>
-                    Criar um novo time
+                    aoAlterado={valor => setCorTime(valor)} />
+                <Botao
+                    action="botao-card">
+                    <span>Criar um novo time</span>
                 </Botao>
             </form>
             <div className='formulario__index'>
@@ -101,8 +107,7 @@ const Formulario = ({aoProgramadorCadastrado, times, cadastrarTime}) => {
                 <div></div>
                 <Botao
                     aoRemoverForm={removerForm}
-                    action='botao-form'>
-                </Botao>
+                    action='botao-form' />
             </div>
         </section>
     )

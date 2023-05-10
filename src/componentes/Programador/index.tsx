@@ -1,7 +1,18 @@
 import {AiFillCloseCircle, AiFillHeart, AiOutlineHeart} from 'react-icons/ai'
 import './Programador.css';
 
-const Programador = ({nome, imagem, experiencia, corDeFundo, aoDeletar, id, favorito, aoFavoritar}) => {
+interface ProgramadorProps {
+    id: string,
+    nome: string,
+    imagem: string,
+    experiencia: string,
+    corDeFundo: string,
+    favorito: Boolean
+    aoDeletar: (id: string) => void,
+    aoFavoritar: (id: string) => void
+}
+
+const Programador = ({nome, imagem, experiencia, corDeFundo, aoDeletar, id, favorito, aoFavoritar}: ProgramadorProps) => {
     
     function favoritar() {
         aoFavoritar(id);

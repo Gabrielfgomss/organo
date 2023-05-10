@@ -4,14 +4,14 @@ import Formulario from './componentes/Formulario';
 import Rodape from './componentes/Rodape';
 import Time from './componentes/Time';
 import { v4 as uuidv4 } from 'uuid';
+import { IProgramador } from './shared/interfaces/IProgramador';
+import { ITimes } from './shared/interfaces/ITimes';
 
 function App() {
 
- const [times, setTimes] = useState(() => {
-    const lista = localStorage.getItem('times');
-    const listaDeTimes = JSON.parse(lista);
+  const [times, setTimes] = useState<ITimes[]>(
     
-    return listaDeTimes || [
+    JSON.parse(localStorage.getItem('times') || 'null')||[
       {
         id: uuidv4(),
         nome: 'Front-End',
@@ -37,32 +37,29 @@ function App() {
         nome: 'Data Science',
         cor: '#A6D157',
       }
-    ];
-  })
+    ]
+  )
 
   useEffect(() => {
     localStorage.setItem('times', JSON.stringify(times));
   }, [times]);
 
-  const [programadores, setProgramadores] = useState(() => {
-    const programadorCadastrado = localStorage.getItem('programadores');
-    const initialValue = JSON.parse(programadorCadastrado);
-    return initialValue || [];
-  });
+  const [programadores, setProgramadores] = useState<IProgramador[]>(
+    JSON.parse(localStorage.getItem('programadores') || 'null')||[]);
 
   useEffect(() => {
     localStorage.setItem('programadores', JSON.stringify(programadores));
   }, [programadores]);
 
-  const aoNovoProgramadorAdicionado = (programador) => {
+  const aoNovoProgramadorAdicionado = (programador: IProgramador) => {
     setProgramadores([...programadores, programador])
   }
 
-  function deletarProgramador(id) {
-    setProgramadores(programadores.filter(programador => programador.id !== id), console.log('work'));
+  function deletarProgramador(id: String) {
+    setProgramadores(programadores.filter(programador => programador.id !== id));
   }
 
-  function mudarCorDoTime(cor, id) {
+  function mudarCorDoTime(cor: string, id: string) {
     setTimes(times.map(time => {
       if (time.id === id) {
         time.cor = cor;
@@ -71,13 +68,13 @@ function App() {
     }));
   }
 
-  function cadastrarTime(novoTime) {
-    setTimes([...times, { ...novoTime, id: uuidv4() }]);
+  function cadastrarTime(novoTime: ITimes) {
+    setTimes([...times, { ...novoTime }]); 
   }
-
-  function resolverFavorito(id) {
+  
+  function resolverFavorito(id: string) {
     setProgramadores(programadores.map(programador => {
-      if(programador.id === id) {
+      if (programador.id === id) {
         programador.favorito = !programador.favorito
       };
       return programador
@@ -87,22 +84,21 @@ function App() {
   return (
     <div className="App">
 
-      <Banner/>
+      <Banner enderecoImagem='/imagens/banner.png' textoAlternativo='O banner principal do Organo' />
 
-      <Formulario 
+      <Formulario
         cadastrarTime={cadastrarTime}
-        times={times.map(time => time.nome)}
+        times={times}
         aoProgramadorCadastrado={programador => (aoNovoProgramadorAdicionado(programador))}
-        >
-      </Formulario>
+      />
 
-      {times.map(time => 
-        <Time 
+      {times.map(time =>
+        <Time
           aoFavoritar={resolverFavorito}
           id={time.id}
           mudarCor={mudarCorDoTime}
-          key={time.nome} 
-          nomeDoTime={time.nome} 
+          key={time.nome}
+          nomeDoTime={time.nome}
           cor={time.cor}
           programadores={programadores.filter(programador => programador.time === time.nome)}
           aoDeletar={deletarProgramador}
